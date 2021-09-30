@@ -18,7 +18,8 @@ import * as fs from "fs";
 /**
  * Represents a document.
  */
-export class Document extends Renderable {
+export class Document extends Renderable
+{
   /**
    * The name of the file represented by this document.
    */
@@ -125,20 +126,25 @@ export class Document extends Renderable {
    * @param document
    * The {@link TextDocument `TextDocument`} to load the info from.
    */
-  public constructor(parser: MarkdownIt, document?: TextDocument) {
+  public constructor(parser: MarkdownIt, document?: TextDocument)
+  {
     super();
 
-    if (document) {
+    if (document)
+    {
       this.RawContent = document.getText();
       this.fileName = document.isUntitled ? null : document.fileName;
 
-      if (document.isUntitled) {
+      if (document.isUntitled)
+      {
         this.title = document.uri.fsPath;
-      } else {
+      } else
+      {
         this.fileName = document.fileName;
         this.title = parse(this.FileName).name;
       }
-    } else {
+    } else
+    {
       this.title = "Untitled";
     }
 
@@ -153,21 +159,24 @@ export class Document extends Renderable {
   /**
    * Gets the name of the file represented by this document.
    */
-  public get FileName(): string {
+  public get FileName(): string
+  {
     return this.fileName;
   }
 
   /**
    * Gets the title of the document.
    */
-  public get Title(): string {
+  public get Title(): string
+  {
     return (this.Attributes[AttributeKey.Title] as string) ?? this.title;
   }
 
   /**
    * Gets or sets the raw version of the content.
    */
-  public get RawContent(): string {
+  public get RawContent(): string
+  {
     return (
       "---\n" +
       YAML.stringify(this.Attributes).trim() +
@@ -180,12 +189,15 @@ export class Document extends Renderable {
   /**
    * @inheritdoc
    */
-  public set RawContent(value: string) {
-    try {
+  public set RawContent(value: string)
+  {
+    try
+    {
       let result = (fm as any)(value);
       this.Attributes = result.attributes;
       this.Content = result.body;
-    } catch (exception) {
+    } catch (exception)
+    {
       throw new YAMLException(exception);
     }
   }
@@ -193,189 +205,216 @@ export class Document extends Renderable {
   /**
    * Gets or sets the content of the document.
    */
-  public override get Content(): string {
+  public override get Content(): string
+  {
     return this.Body.Content;
   }
 
   /**
    * @inheritdoc
    */
-  public override set Content(value: string) {
+  public override set Content(value: string)
+  {
     this.Body.Content = value;
   }
 
   /**
    * Gets or sets the quality of the document.
    */
-  public get Quality(): number {
+  public get Quality(): number
+  {
     return this.quality;
   }
 
   /**
    * @inheritdoc
    */
-  public set Quality(value: number) {
+  public set Quality(value: number)
+  {
     this.quality = value;
   }
 
   /**
    * Gets or sets the attributes of the document.
    */
-  public get Attributes(): Record<string, unknown> {
+  public get Attributes(): Record<string, unknown>
+  {
     return this.attributes;
   }
 
   /**
    * @inheritdoc
    */
-  public set Attributes(value: Record<string, unknown>) {
+  public set Attributes(value: Record<string, unknown>)
+  {
     this.attributes = value;
   }
 
   /**
    * Gets or sets the the default date-format.
    */
-  public get DefaultDateFormat(): string {
+  public get DefaultDateFormat(): string
+  {
     return this.defaultDateFormat;
   }
 
   /**
    * @inheritdoc
    */
-  public set DefaultDateFormat(value: string) {
+  public set DefaultDateFormat(value: string)
+  {
     this.defaultDateFormat = value;
   }
 
   /**
    * Gets or sets a collection of custom date-formats.
    */
-  public get DateFormats(): Record<string, string> {
+  public get DateFormats(): Record<string, string>
+  {
     return this.dateFormats;
   }
 
   /**
    * @inheritdoc
    */
-  public set DateFormats(value: Record<string, string>) {
+  public set DateFormats(value: Record<string, string>)
+  {
     this.dateFormats = value;
   }
 
   /**
    * Gets or sets the locale to print values.
    */
-  public get Locale(): CultureInfo {
+  public get Locale(): CultureInfo
+  {
     return this.locale;
   }
 
   /**
    * @inheritdoc
    */
-  public set Locale(value: CultureInfo) {
+  public set Locale(value: CultureInfo)
+  {
     this.locale = value;
   }
 
   /**
    * Gets or sets the layout of the document.
    */
-  public get Paper(): Paper {
+  public get Paper(): Paper
+  {
     return this.paper;
   }
 
   /**
    * @inheritdoc
    */
-  public set Paper(value: Paper) {
+  public set Paper(value: Paper)
+  {
     this.paper = value;
   }
 
   /**
    * Gets or sets a value indicating whether headers and footers are enabled.
    */
-  public get HeaderFooterEnabled(): boolean {
+  public get HeaderFooterEnabled(): boolean
+  {
     return this.headerFooterEnabled;
   }
 
   /**
    * @inheritdoc
    */
-  public set HeaderFooterEnabled(value: boolean) {
+  public set HeaderFooterEnabled(value: boolean)
+  {
     this.headerFooterEnabled = value;
   }
 
   /**
    * Gets the header of the document.
    */
-  public get Header(): RunningBlock {
+  public get Header(): RunningBlock
+  {
     return this.header;
   }
 
   /**
    * Gets the footer of the document.
    */
-  public get Footer(): RunningBlock {
+  public get Footer(): RunningBlock
+  {
     return this.footer;
   }
 
   /**
    * Gets the metadata-section of the document.
    */
-  public get Meta(): DocumentFragment {
+  public get Meta(): DocumentFragment
+  {
     return this.meta;
   }
 
   /**
    * Gets or sets the template to use for the {@link Render `Render`}-method.
    */
-  public get Template(): string {
+  public get Template(): string
+  {
     return this.template;
   }
 
   /**
    * @inheritdoc
    */
-  public set Template(value: string) {
+  public set Template(value: string)
+  {
     this.template = value;
   }
 
   /**
    * Gets or sets the stylesheets of the document.
    */
-  public get StyleSheets(): Asset[] {
+  public get StyleSheets(): Asset[]
+  {
     return this.styleSheets;
   }
 
   /**
    * @inheritdoc
    */
-  public set StyleSheets(value: Asset[]) {
+  public set StyleSheets(value: Asset[])
+  {
     this.styleSheets = value;
   }
 
   /**
    * Gets or sets the scripts of the document.
    */
-  public get Scripts(): Asset[] {
+  public get Scripts(): Asset[]
+  {
     return this.scripts;
   }
 
   /**
    * @inheritdoc
    */
-  public set Scripts(value: Asset[]) {
+  public set Scripts(value: Asset[])
+  {
     this.scripts = value;
   }
 
   /**
    * Gets the parser of the document.
    */
-  public get Parser(): MarkdownIt {
+  public get Parser(): MarkdownIt
+  {
     return this.parser;
   }
 
   /**
    * Gets the body of the document.
    */
-  protected get Body(): DocumentFragment {
+  protected get Body(): DocumentFragment
+  {
     return this.body;
   }
 
@@ -385,15 +424,18 @@ export class Document extends Renderable {
    * @returns
    * The rendered text.
    */
-  public async Render(): Promise<string> {
+  public async Render(): Promise<string>
+  {
     let styleCode = "";
     let scriptCode = "";
 
-    for (let styleSheet of this.StyleSheets) {
+    for (let styleSheet of this.StyleSheets)
+    {
       styleCode += await styleSheet.Render();
     }
 
-    for (let script of this.Scripts) {
+    for (let script of this.Scripts)
+    {
       scriptCode += await script.Render();
     }
 
@@ -407,8 +449,10 @@ export class Document extends Renderable {
     let configToBase64 = true; //Needs to be an setting
     const imgTagRegex = /(<img[^>]+src=")([^"]+)("[^>]*>)/g; // Match '<img...src="..."...>'
 
-    function relToAbsPath(resource: Uri, href: string): string {
-      if (!href || href.startsWith("http") || path.isAbsolute(href)) {
+    function relToAbsPath(resource: Uri, href: string): string
+    {
+      if (!href || href.startsWith("http") || path.isAbsolute(href))
+      {
         return href;
       }
 
@@ -416,31 +460,38 @@ export class Document extends Renderable {
       return path.join(path.dirname(resource.fsPath), href);
     }
 
-    if (configToBase64) {
-      view.content = view.content.replace(imgTagRegex, (_, p1, p2, p3) => {
+    if (configToBase64)
+    {
+      view.content = view.content.replace(imgTagRegex, (_, p1, p2, p3) =>
+      {
         // _ is the string matcher by regex
         // p1 is the first part e.g actual tag <img src="
         // p2 is the second part e.g whatever is in the src
         // p3 is the third part everything after the scr
         // Guard clause against http and data sources of the <img> tag
-        if (p2.startsWith("http") || p2.startsWith("data:")) {
+        if (p2.startsWith("http") || p2.startsWith("data:"))
+        {
           return _;
         }
         this.fileName;
         const imgSrc = relToAbsPath(Uri.file(this.fileName), p2);
 
-        try {
+        try
+        {
           let imgExt = path.extname(imgSrc).slice(1);
-          if (imgExt === "jpg") {
+          if (imgExt === "jpg")
+          {
             imgExt = "jpeg";
-          } else if (imgExt === "svg") {
+          } else if (imgExt === "svg")
+          {
             imgExt += "+xml";
           }
           const file = fs
             .readFileSync(imgSrc.replace(/%20/g, " "))
             .toString("base64");
           return `${p1}data:image/${imgExt};base64,${file}${p3}`;
-        } catch (e) {
+        } catch (e)
+        {
           console.log(e);
         }
 
