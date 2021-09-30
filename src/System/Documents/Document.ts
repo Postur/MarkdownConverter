@@ -20,6 +20,7 @@ import * as fs from "fs";
  */
 export class Document extends Renderable
 {
+
   /**
    * The name of the file represented by this document.
    */
